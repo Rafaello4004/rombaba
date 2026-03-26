@@ -15,3 +15,9 @@ if (file_exists("test.txt")) {
     echo "Файл test.txt не найден для чтения<br>";
 }
 
+if (rename("test.txt", "mir.txt")) {
+    echo "Файл переименован в mir.txt<br>";
+} else {
+    echo "Ошибка переименования<br>";
+}
+
