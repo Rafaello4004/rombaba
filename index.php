@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>mew</title>
-<meta charset="UTF-8"> 
-</head>
-<body>
-<h1>Дерюгин А. Д. | 9ПО-32</h1>
 <?php
-$str = "mememystrrrrrr";
-$num = 19937;
-$bool = false;
-$empty = null;
-echo $str;
+$file = fopen("test.txt", "w");
+if ($file) {
+    fwrite($file, "Привет, мир!");
+    fclose($file);
+    echo "Файл test.txt создан и данные записаны<br>";
+} else {
+    echo "Не удалось открыть файл<br>";
+}
 ?>
-<!-- <p>Значение $str:  <?php echo var_dump($str)?> \nЗначение $num: var_dump($num) \nЗначение $bool: var_dump($bool) \nЗначение $empty: var_dump($empty)</p> -->
-</body>
-</html>
