@@ -21,3 +21,14 @@ if (rename("test.txt", "mir.txt")) {
     echo "Ошибка переименования<br>";
 }
 
+if (!is_dir("folder")) {
+    mkdir("folder");
+    echo "Папка 'folder' создана<br>";
+}
+
+if (rename("mir.txt", "folder/mir.txt")) {
+    echo "Файл перемещен в папку folder<br>";
+} else {
+    echo "Ошибка перемещения<br>";
+}
+
