@@ -53,3 +53,13 @@ if (file_exists($file_path)) {
     echo "Файл не найден<br>";
 }
 
+if (unlink("folder/world.txt")) {
+    echo "Файл world.txt удален<br>";
+} else {
+    echo "Не удалось удалить world.txt<br>";
+}
+
+echo "Проверка существования:<br>";
+echo "world.txt существует? " . (file_exists("folder/world.txt") ? "Да" : "Нет") . "<br>";
+echo "mir.txt существует? " . (file_exists("folder/mir.txt") ? "Да" : "Нет") . "<br>";
+
