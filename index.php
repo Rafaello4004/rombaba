@@ -32,3 +32,9 @@ if (rename("mir.txt", "folder/mir.txt")) {
     echo "Ошибка перемещения<br>";
 }
 
+if (copy("folder/mir.txt", "folder/world.txt")) {
+    echo "Создана копия world.txt<br>";
+} else {
+    echo "Ошибка копирования<br>";
+}
+
