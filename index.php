@@ -38,3 +38,18 @@ if (copy("folder/mir.txt", "folder/world.txt")) {
     echo "Ошибка копирования<br>";
 }
 
+$file_path = "folder/world.txt";
+if (file_exists($file_path)) {
+    $bytes = filesize($file_path);
+    $kb = $bytes / 1024;
+    $mb = $kb / 1024;
+    $gb = $mb / 1024;
+
+    echo "Размер world.txt: <br>";
+    echo "Байты: " . $bytes . " b<br>";
+    echo "Мегабайты: " . $mb . " MB<br>";
+    echo "Гигабайты: " . $gb . " GB<br>";
+} else {
+    echo "Файл не найден<br>";
+}
+
