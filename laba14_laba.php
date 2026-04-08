@@ -9,4 +9,9 @@ class Page
         $this->name = "page";
         $this->template = "<div><p>It is a default page</p></div>";
     }
+
+    public function render()
+    {
+        echo $this->template;
+    }
 }
