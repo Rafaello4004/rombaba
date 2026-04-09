@@ -40,3 +40,17 @@ class BlogPage extends Page
         ';
     }
 }
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Лабра 14</title>
+</head>
+<body>
+    <nav>
+        <a href="?page=page">Главная страница</a>
+        <br>
+        <a href="?page=blog">Подкасты</a>
+    </nav>
+</body>
+</html>
