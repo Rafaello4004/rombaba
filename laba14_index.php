@@ -1,13 +1,13 @@
 <?php
 class Page 
 {
-    protected $name;
-    protected $template;
+    protected string $name;
+    protected string $template;
 
     public function __construct() 
     {
         $this->name = "page";
-        $this->template = "<div><p>It is a default page</p></div>";
+        $this->template = "<div><p>Добро пожаловать на сайт с подкастами!</p></div>";
     }
 
     public function render()
@@ -52,5 +52,21 @@ class BlogPage extends Page
         <br>
         <a href="?page=blog">Подкасты</a>
     </nav>
+        <hr>
+    <div>
+        <?php
+            $requestedPage = '';
+            if (isset($_GET['page'])) {
+                $requestedPage = $_GET['page'];
+            } 
+            if ($requestedPage === 'blog') {
+                $pageObject = new BlogPage();
+                $pageObject->render();
+            } else {
+                $pageObject = new Page();
+                $pageObject->render();
+            }
+        ?>
+    </div>
 </body>
 </html>
