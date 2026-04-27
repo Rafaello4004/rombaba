@@ -1,4 +1,7 @@
 <?php include '../includes/header.php'; ?>
+<head>
+    <link rel="icon" type="image/png" href="../assets/images/fav.png">
+</head>
 <main>
     <h1>О нас</h1>
 </main>
