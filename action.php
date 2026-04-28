@@ -1,22 +1,51 @@
 <?php
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    if (empty($_POST['email']) || empty($_POST['password'])) {
-        echo "<p style='color: red;'>Поля 'E-mail' и 'Пароль' обязательны для заполнения.</p>";
-        echo "<p><a href='index.php'>Вернуться к форме регистрации</a></p>";
+    $num1 = $_POST['num1'] ?? null;
+    $num2 = $_POST['num2'] ?? null;
+    $operation = $_POST['operation'] ?? null;
+
+    if (!is_numeric($num1) || !is_numeric($num2)) {
+        $_SESSION['calc_error'] = "Пожалуйста, введите числовые значения.";
+        header('Location: index.php');
         exit;
     }
 
-    echo "<h2>Спасибо за регистрацию!</h2>";
-    echo "<p>Ваше имя: " . htmlspecialchars($_POST['name'] ?? 'не указано') . "</p>";
-    echo "<p>Ваш e-mail: " . htmlspecialchars($_POST['email']) . "</p>";
-    echo "<p>Пароль: " . str_repeat('*', strlen($_POST['password'])) . "</p>"; // Не выводим пароль в открытом виде
-    echo "<p>Пол: " . htmlspecialchars($_POST['gender'] ?? 'не указан') . "</p>";
+    $num1 = (float)$num1;
+    $num2 = (float)$num2;
+    $result = null;
+
+    switch ($operation) {
+        case '+':
+            $result = $num1 + $num2;
+            break;
+        case '-':
+            $result = $num1 - $num2;
+            break;
+        case '*':
+            $result = $num1 * $num2;
+            break;
+        case '/':
+            if ($num2 == 0) {
+                $_SESSION['calc_error'] = "Ошибка: Деление на ноль невозможно!";
+            } else {
+                $result = $num1 / $num2;
+            }
+            break;
+        default:
+            $_SESSION['calc_error'] = "Выберите корректную операцию.";
+    }
+
+    if (isset($result)) {
+        $_SESSION['calc_result'] = $result;
+    }
     
-    $agreement = isset($_POST['agreement']) ? 'Да' : 'Нет';
-    echo "<p>Согласие с условиями: $agreement</p>";
-    
+    header('Location: index.php');
+    exit;
 } else {
-    echo "<p>Доступ запрещен, используйте <a href='index.php'>форму регистрации</a>.</p>";
+    header('Location: index.php');
+    exit;
 }
 ?>

@@ -7,42 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Форма регистрации</h1>
-
+    <div>
+    <h2>Калькулятор</h2>
     <form action="action.php" method="post">
-        <p>
-            <label for="name">Имя пользователя:</label>
-            <input type="text" id="name" name="name" placeholder="Введите имя" required>
-        </p>
-        <p>
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" placeholder="Введите e-mail" required>
-        </p>
-        <p>
-            <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password" placeholder="Введите пароль" required>
-        </p>
-        <p>
-            <label for="password">Подтвердите пароль:</label>
-            <input type="password" id="password" name="password" placeholder="Подтвердите пароль" required>
-        </p>
-        <p>
-            <label>Пол:</label>
-            <select name="gender">
-                <option value="">-- Выберите пол --</option>
-                <option value="male">Мужской</option>
-                <option value="female">Женский</option>
-            </select>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" name="agreement" value="yes" required>
-                Я согласен с условиями
-            </label>
-        </p>
-        <p>
-            <input type="submit" value="Зарегистрироваться">
-        </p>
+        <input type="number" name="num1" placeholder="Число 1" step="any" required><br>
+        <input type="number" name="num2" placeholder="Число 2" step="any" required><br>
+        
+        <div>
+            <input type="submit" name="operation" value="+">
+            <input type="submit" name="operation" value="-">
+            <input type="submit" name="operation" value="*">
+            <input type="submit" name="operation" value="/">
+        </div>
     </form>
+
+    <?php
+    session_start();
+    if (isset($_SESSION['calc_result'])) {
+        echo '<div>Результат: ' . $_SESSION['calc_result'] . '</div>';
+        unset($_SESSION['calc_result']);
+    }
+    if (isset($_SESSION['calc_error'])) {
+        echo '<div>' . $_SESSION['calc_error'] . '</div>';
+        unset($_SESSION['calc_error']);
+    }
+    ?>
+</div>
 </body>
 </html>
