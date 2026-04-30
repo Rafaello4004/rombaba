@@ -2,13 +2,13 @@
 //Задание 1
 $mul = fn($a, $b) => $a * $b;
 
-echo $mul(7, 7) . "<br><br>";
+//echo $mul(7, 7) . "<br><br>";
 
 //Задание 2
 $m_reg = function($a, $b) {
     return $mul($a, $b);
 };
-echo "tada";
+//echo "tada";
 $a = 38;
 $b = 87;
 $m_use = function() use ($a, $b) {
@@ -29,9 +29,9 @@ function operation($m, $n, $o) {
     return $o($m, $n);
 }
 
-echo operation(3, 4, function($a, $b) {
-    return $a + $b;
-});
+// echo operation(3, 4, function($a, $b) {
+//     return $a + $b;
+// });
 
 // Задание 4
 function array_map_custom(callable $fn, array $array) {
@@ -42,23 +42,19 @@ function array_map_custom(callable $fn, array $array) {
     return $result;
 }
 
-//!!!ДИПСИК АЛЕРТ!!!
-//!!!СИК ШЕЛТЕР!!!
-
-// 5. Проверка пароля
+// Задание 5
 function checkPassword($password) {
-    // Приводим к строке и получаем длину
     $password = (string)$password;
     $length = strlen($password);
     
     if ($length > 5 && $length < 10) {
-        echo "Пароль подходит (длина: $length символов)\n";
+        echo "Пароль подходит\n";
     } else {
-        echo "Нужно придумать другой пароль (длина: $length символов)\n";
+        echo "Нужно придумать другой пароль\n";
     }
 }
 
-// 6. Проверка начала строки на http:// или https://
+// Задание 6
 function checkHttpProtocol($str) {
     $str = (string)$str;
     if (strpos($str, 'http://') === 0 || strpos($str, 'https://') === 0) {
@@ -68,20 +64,9 @@ function checkHttpProtocol($str) {
     }
 }
 
-// Альтернативный вариант с substr
-function checkHttpProtocol_v2($str) {
-    $str = (string)$str;
-    if (substr($str, 0, 7) === 'http://' || substr($str, 0, 8) === 'https://') {
-        echo "да\n";
-    } else {
-        echo "нет\n";
-    }
-}
-
-// 7. Проверка окончания строки на .png или .jpg
+// Задание 7 
 function checkImageExtension($str) {
     $str = (string)$str;
-    // Проверяем последние 4 символа
     $extension = substr($str, -4);
     
     if ($extension === '.png' || $extension === '.jpg') {
@@ -91,19 +76,25 @@ function checkImageExtension($str) {
     }
 }
 
-// 8. Замена точек на дефисы
+// Задание 8
+$str = '16.04.2021';
+
 function replaceDotsToDashes($str) {
     $str = (string)$str;
     return str_replace('.', '-', $str);
 }
 
-// 9. Разбиение строки в массив через explode
+// Задание 9
+$str = 'html css php';
+
 function stringToArray($str) {
     $str = (string)$str;
     return explode(' ', $str);
 }
 
-// 10. Объединение массива в строку через implode
+// Задание 10
+$str = array('html', 'css', 'php');
+
 function arrayToString(array $arr) {
     return implode(',', $arr);
 }

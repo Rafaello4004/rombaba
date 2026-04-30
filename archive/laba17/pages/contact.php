@@ -2,7 +2,7 @@
 <?php include '../includes/form-handler.php'; ?>
 <head>
     <link rel="icon" type="image/png" href="../assets/images/fav.png">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <main>
     <h1>Контакты</h1>
