@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Совет дня</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #advice { font-size: 1.2em; margin: 20px; padding: 20px; background: #f9f9f9; border-radius: 10px; min-height: 50px; }
+        button { padding: 10px 20px; margin: 10px; cursor: pointer; font-size: 16px; }
+        .saved { margin-top: 30px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .saved-item { background: #e8f4f8; padding: 10px; margin: 5px; border-radius: 5px; display: flex; justify-content: space-between; }
+        .delete-btn { background: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Совет от Advice Slip API</h1>
+    <div id="advice">Нажмите кнопку, чтобы получить совет</div>
+    <button onclick="getAdvice()">🎲 Получить совет</button>
+    <button onclick="saveAdvice()">❤️ Сохранить совет</button>
+
+    <div class="saved">
+        <h3>Сохраненные советы:</h3>
+        <div id="saved-list"></div>
+    </div>
+
+    <p><a href="index.php">← Назад к тестам</a></p>
+
+    <script>
+        let currentAdvice = null;
+
+        async function getAdvice() {
+            try {
+                const response = await fetch('https://api.adviceslip.com/advice');
+                const data = await response.json();
+                currentAdvice = data.slip.advice;
+                document.getElementById('advice').textContent = `"${currentAdvice}"`;
+            } catch (error) {
+                document.getElementById('advice').textContent = 'Ошибка получения совета';
+            }
+        }
+
+        function saveAdvice() {
+            if (!currentAdvice) {
+                alert('Сначала получите совет!');
+                return;
+            }
+            let saved = JSON.parse(localStorage.getItem('advices') || '[]');
+            if (!saved.includes(currentAdvice)) {
+                saved.push(currentAdvice);
+                localStorage.setItem('advices', JSON.stringify(saved));
+                displaySaved();
+            }
+        }
+
+        function deleteAdvice(index) {
+            let saved = JSON.parse(localStorage.getItem('advices') || '[]');
+            saved.splice(index, 1);
+            localStorage.setItem('advices', JSON.stringify(saved));
+            displaySaved();
+        }
+
+        function displaySaved() {
+            const saved = JSON.parse(localStorage.getItem('advices') || '[]');
+            const container = document.getElementById('saved-list');
+            container.innerHTML = saved.map((advice, i) => `
+                <div class="saved-item">
+                    <span>${advice}</span>
+                    <button class="delete-btn" onclick="deleteAdvice(${i})">Удалить</button>
+                </div>
+            `).join('');
+        }
+
+        window.onload = displaySaved;
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Факты о животных</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        #fact { font-size: 1.2em; margin: 20px; padding: 20px; background: #f0fff0; border-radius: 10px; min-height: 50px; }
+        button { padding: 10px 20px; cursor: pointer; font-size: 16px; }
+        .saved { margin-top: 30px; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .saved-item { background: #f0e6ff; padding: 10px; margin: 5px; border-radius: 5px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <h1>Факты о животных</h1>
+    <div id="fact">Нажмите кнопку для факта</div>
+    <button onclick="getFact('cat')">🐱 Коты</button>
+    <button onclick="getFact('dog')">🐶 Собаки</button>
+    <button onclick="getFact('random')">🎲 Случайное животное</button>
+    <button onclick="saveFact()">❤️ Сохранить</button>
+
+    <div class="saved">
+        <h3>Сохраненные факты:</h3>
+        <div id="saved-list"></div>
+    </div>
+
+    <p><a href="index.php">← Назад к тестам</a></p>
+
+    <script>
+        let currentFact = null;
+
+        async function getFact(animal) {
+            try {
+                let url = 'https://cat-fact.herokuapp.com/facts/random';
+                if (animal === 'dog') {
+                    url = 'https://dog-api.kinduff.com/api/facts';
+                } else if (animal === 'cat') {
+                    url = 'https://cat-fact.herokuapp.com/facts/random?animal_type=cat';
+                }
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (animal === 'dog') {
+                    currentFact = data.facts[0];
+                } else {
+                    currentFact = data.text;
+                }
+                
+                document.getElementById('fact').textContent = currentFact;
+            } catch (error) {
+                document.getElementById('fact').textContent = 'Ошибка загрузки факта';
+            }
+        }
+
+        function saveFact() {
+            if (!currentFact) return;
+            let saved = JSON.parse(localStorage.getItem('animalFacts') || '[]');
+            saved.push(currentFact);
+            localStorage.setItem('animalFacts', JSON.stringify(saved));
+            displaySavedFacts();
+        }
+
+        function displaySavedFacts() {
+            const saved = JSON.parse(localStorage.getItem('animalFacts') || '[]');
+            document.getElementById('saved-list').innerHTML = saved.map(f => 
+                `<div class="saved-item">${f}</div>`
+            ).join('');
+        }
+
+        window.onload = displaySavedFacts;
+    </script>
+</body>
+</html>
